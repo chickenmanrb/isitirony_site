@@ -303,7 +303,7 @@ export default function IsItIronySite() {
                   onClick={() => setShow(opt)}
                   className={`flex-1 h-11 rounded-2xl border text-sm font-extrabold transition ${
                     show === opt
-                      ? "bg-emerald-500 text-white border-emerald-500 shadow"
+                      ? "bg-emerald-600 text-white border-emerald-600 shadow"
                       : "bg-white text-emerald-800 border-emerald-300 hover:bg-emerald-50"
                   }`}
                 >
@@ -320,7 +320,7 @@ export default function IsItIronySite() {
                 onClick={() => toggleType(t)}
                 className={`px-3 py-1.5 rounded-full border text-xs font-bold transition ${
                   activeTypes.includes(t)
-                    ? "bg-emerald-500 text-white border-emerald-500 shadow"
+                    ? "bg-emerald-600 text-white border-emerald-600 shadow"
                     : "bg-white text-emerald-800 border-emerald-300 hover:bg-emerald-50"
                 }`}
               >
