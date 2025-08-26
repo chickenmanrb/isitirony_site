@@ -68,3 +68,17 @@ button:focus-visible {
 }
 
 @import "tailwindcss";
+
+/* Duolingo-ish tokens */
+:root{
+  --duo-green:#58cc02;
+  --duo-green-600:#3fa000;
+  --duo-lime:#d7ff5e;
+  --duo-blue:#1cb0f6;
+  --duo-yellow:#ffd43b;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply text-gray-900; }
+}
