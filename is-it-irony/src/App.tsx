@@ -1,27 +1,33 @@
-import React, { useMemo, useState } from "react";
+// src/App.tsx
+import { useMemo, useState } from "react";
 
-// ------------------------------
-// Is It Irony? — Duolingo-style skin (playful, bold, friendly)
-// TailwindCSS recommended. Single-file React mockup.
-// ------------------------------
-
-// Types
- type Example = {
+// ---------- Types ----------
+type Example = {
   text: string;
-  proper: boolean; // true = Proper use of "irony"
-  type: "Verbal" | "Situational" | "Dramatic" | "Coincidence" | "Bad luck / timing" | "Hypocrisy" | "Sarcasm (not irony)" | "Paradox / Contradiction";
+  proper: boolean; // true = proper use of "irony"
+  type:
+    | "Verbal"
+    | "Situational"
+    | "Dramatic"
+    | "Coincidence"
+    | "Bad luck / timing"
+    | "Hypocrisy"
+    | "Sarcasm (not irony)"
+    | "Paradox / Contradiction";
   explanation: string;
   instead?: string[]; // suggested words when improper
   sourceTag?: string; // e.g., "(popular example)", "(song lyric)"
 };
 
+// ---------- Data ----------
 const EXAMPLES: Example[] = [
   // PROPER — Verbal
   {
     text: "Staring at a downpour and saying, ‘What lovely weather.’",
     proper: true,
     type: "Verbal",
-    explanation: "You intentionally say the opposite of what you mean. That mismatch between literal words and intended meaning is verbal irony (often sarcasm).",
+    explanation:
+      "You intentionally say the opposite of what you mean. That mismatch between literal words and intended meaning is verbal irony (often sarcasm).",
     sourceTag: "(popular)",
   },
   // PROPER — Situational
@@ -29,39 +35,49 @@ const EXAMPLES: Example[] = [
     text: "A fire station burns down.",
     proper: true,
     type: "Situational",
-    explanation: "The place dedicated to preventing fires is itself destroyed by fire—an outcome that clashes with what we’d reasonably expect.",
+    explanation:
+      "The place dedicated to preventing fires is itself destroyed by fire—an outcome that clashes with what we’d reasonably expect.",
     sourceTag: "(popular)",
   },
   {
-    text: "A police station is robbed while the officers attend a ‘crime prevention’ ceremony.",
+    text:
+      "A police station is robbed while the officers attend a ‘crime prevention’ ceremony.",
     proper: true,
     type: "Situational",
-    explanation: "The outcome directly undercuts the expectation created by the situation (and the event’s theme).",
+    explanation:
+      "The outcome directly undercuts the expectation created by the situation (and the event’s theme).",
   },
   {
     text: "An English teacher unveils a ‘GRAMMAR CHAMPTION’ banner.",
     proper: true,
     type: "Situational",
-    explanation: "A public display meant to signal mastery instead exposes the opposite—an incongruity between intent and result.",
+    explanation:
+      "A public display meant to signal mastery instead exposes the opposite—an incongruity between intent and result.",
   },
   {
-    text: "A highway billboard that warns ‘Don’t text and drive’ is knocked down by a texting driver.",
+    text:
+      "A highway billboard that warns ‘Don’t text and drive’ is knocked down by a texting driver.",
     proper: true,
     type: "Situational",
-    explanation: "The message and the outcome collide—the exact harm the warning sought to prevent causes the damage.",
+    explanation:
+      "The message and the outcome collide—the exact harm the warning sought to prevent causes the damage.",
   },
   // PROPER — Dramatic
   {
-    text: "In *Romeo and Juliet*, the audience knows Juliet is alive when Romeo does not.",
+    text:
+      "In Romeo and Juliet, the audience knows Juliet is alive when Romeo does not.",
     proper: true,
     type: "Dramatic",
-    explanation: "Classic dramatic irony: the audience has crucial information that a character lacks, so words and actions take on double meanings.",
+    explanation:
+      "Classic dramatic irony: the audience has crucial information that a character lacks, so words and actions take on double meanings.",
   },
   {
-    text: "In a thriller, we watch the villain hide in the closet while the hero strolls in, unaware.",
+    text:
+      "In a thriller, we watch the villain hide in the closet while the hero strolls in, unaware.",
     proper: true,
     type: "Dramatic",
-    explanation: "The audience’s knowledge reshapes the scene—the characters’ expectations don’t match reality we can already see.",
+    explanation:
+      "The audience’s knowledge reshapes the scene—the characters’ expectations don’t match reality we can already see.",
   },
 
   // IMPROPER — Coincidence / Bad luck (popular misuses)
@@ -69,7 +85,8 @@ const EXAMPLES: Example[] = [
     text: "Rain on your wedding day.",
     proper: false,
     type: "Bad luck / timing",
-    explanation: "That’s misfortune or bad timing, not irony. There’s no built‑in contradiction between expectation and outcome.",
+    explanation:
+      "That’s misfortune or bad timing, not irony. There’s no built-in contradiction between expectation and outcome.",
     instead: ["unfortunately", "unlucky", "coincidentally"],
     sourceTag: "(song lyric)",
   },
@@ -77,7 +94,8 @@ const EXAMPLES: Example[] = [
     text: "A free ride when you’ve already paid.",
     proper: false,
     type: "Coincidence",
-    explanation: "Annoying coincidence / redundancy. Irony requires an expectation set and a reversal, not mere inconvenience.",
+    explanation:
+      "Annoying coincidence / redundancy. Irony requires an expectation set and a reversal, not mere inconvenience.",
     instead: ["annoyingly", "redundantly", "coincidentally"],
     sourceTag: "(song lyric)",
   },
@@ -101,12 +119,14 @@ const EXAMPLES: Example[] = [
     text: "Ten thousand spoons when all you need is a knife.",
     proper: false,
     type: "Coincidence",
-    explanation: "Mismatch of resources; not an expectation–reality reversal.",
+    explanation:
+      "Mismatch of resources; not an expectation–reality reversal.",
     instead: ["impractically", "unhelpfully"],
     sourceTag: "(song lyric)",
   },
   {
-    text: "Meeting the person of your dreams and then meeting their spouse.",
+    text:
+      "Meeting the person of your dreams and then meeting their spouse.",
     proper: false,
     type: "Coincidence",
     explanation: "Awkward and unlucky, but not ironic by itself.",
@@ -114,7 +134,7 @@ const EXAMPLES: Example[] = [
     sourceTag: "(song lyric)",
   },
   {
-    text: "A death‑row pardon two minutes too late.",
+    text: "A death-row pardon two minutes too late.",
     proper: false,
     type: "Bad luck / timing",
     explanation: "Tragic timing, not irony.",
@@ -125,36 +145,43 @@ const EXAMPLES: Example[] = [
     text: "It rains right after I wash my car.",
     proper: false,
     type: "Bad luck / timing",
-    explanation: "Maddening timing, but no expectation–reality inversion.",
+    explanation:
+      "Maddening timing, but no expectation–reality inversion.",
     instead: ["unfortunately", "annoyingly"],
   },
   {
     text: "I always bump into a friend the day I look terrible.",
     proper: false,
     type: "Coincidence",
-    explanation: "Coincidence combined with self‑consciousness—not irony.",
+    explanation:
+      "Coincidence combined with self-consciousness—not irony.",
     instead: ["coincidentally", "embarrassingly"],
   },
+
   // IMPROPER — Hypocrisy / Sarcasm / Paradox mislabels
   {
     text: "A politician who preaches honesty but secretly lies.",
     proper: false,
     type: "Hypocrisy",
-    explanation: "That’s hypocrisy—claiming a virtue you don’t practice. It can be ironic **if** the exposure flips expectations in a revealing way, but the label ‘ironic’ alone is too imprecise.",
+    explanation:
+      "That’s hypocrisy—claiming a virtue you don’t practice. It can be ironic **if** the exposure flips expectations, but ‘ironic’ alone is too imprecise.",
     instead: ["hypocritically"],
   },
   {
-    text: "Calling something ‘literally unbelievable’ when you just mean ‘surprising’.",
+    text:
+      "Calling something ‘literally unbelievable’ when you just mean ‘surprising’.",
     proper: false,
     type: "Sarcasm (not irony)",
-    explanation: "That’s exaggeration or sarcasm. Verbal irony requires saying the opposite of what you mean, not merely intensifying it.",
+    explanation:
+      "That’s exaggeration or sarcasm. Verbal irony requires saying the opposite of what you mean, not merely intensifying it.",
     instead: ["figuratively", "hyperbolically"],
   },
   {
     text: "A sign reads ‘Nothing is written in stone’ on a whiteboard.",
     proper: false,
     type: "Paradox / Contradiction",
-    explanation: "This is a cute contradiction only if it’s *actually* on stone. On a whiteboard, there’s no clash between message and medium.",
+    explanation:
+      "This is a cute contradiction only if it’s *actually* on stone. On a whiteboard, there’s no clash between message and medium.",
     instead: ["amusingly", "cheekily"],
   },
 
@@ -163,26 +190,32 @@ const EXAMPLES: Example[] = [
     text: "A plaque engraved in granite: ‘Nothing is written in stone.’",
     proper: true,
     type: "Situational",
-    explanation: "Here the medium (stone) contradicts the message, creating an expectation–reality clash.",
+    explanation:
+      "Here the medium (stone) contradicts the message, creating an expectation–reality clash.",
     sourceTag: "(popular)",
   },
   {
-    text: "A city unveils a ‘flood‑proof’ museum that floods on opening week.",
+    text:
+      "A city unveils a ‘flood-proof’ museum that floods on opening week.",
     proper: true,
     type: "Situational",
-    explanation: "The claim sets a clear expectation; the outcome inverts it.",
+    explanation:
+      "The claim sets a clear expectation; the outcome inverts it.",
   },
   {
-    text: "A company launches an app called ‘Focus’ and the launch video is riddled with pop‑up notifications.",
+    text:
+      "A company launches an app called ‘Focus’ and the launch video is riddled with pop-up notifications.",
     proper: true,
     type: "Situational",
-    explanation: "Brand promise vs. presentation undermines itself—an expectation–reality reversal.",
+    explanation:
+      "Brand promise vs. presentation undermines itself—an expectation–reality reversal.",
   },
   {
     text: "Posting ‘I never post on social media’… as a post.",
     proper: true,
     type: "Situational",
-    explanation: "The statement contradicts the act that delivers it.",
+    explanation:
+      "The statement contradicts the act that delivers it.",
     sourceTag: "(popular)",
   },
 ];
@@ -198,28 +231,54 @@ const TYPES_ORDER = [
   "Paradox / Contradiction",
 ] as const;
 
-// Small Badge component (Duolingo-ish colors)
-function Pill({ children, kind }: { children: React.ReactNode; kind: "proper" | "improper" | "type" }) {
-  const base = "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold tracking-tight";
+// ---------- UI bits ----------
+function Pill({
+  children,
+  kind,
+}: {
+  children: React.ReactNode;
+  kind: "proper" | "improper" | "type";
+}) {
+  const base =
+    "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold tracking-tight ring-1";
   const map: Record<string, string> = {
-    proper: "bg-emerald-500 text-white ring-1 ring-emerald-600",
-    improper: "bg-rose-500 text-white ring-1 ring-rose-600",
-    type: "bg-sky-100 text-sky-800 ring-1 ring-sky-200",
+    // Duolingo-ish palette
+    proper: "bg-[#58CC02] text-white ring-[#3DA300]",
+    improper: "bg-[#FF4B4B] text-white ring-[#E03A3A]",
+    type: "bg-[#D7F3FF] text-[#0B486B] ring-[#BFEAFF]",
   };
   return <span className={`${base} ${map[kind]}`}>{children}</span>;
 }
 
-function Section({ title, subtitle, children }: { title: string; subtitle?: string; children: React.ReactNode }) {
+function Section({
+  id,
+  title,
+  subtitle,
+  children,
+}: {
+  id?: string;
+  title: string;
+  subtitle?: string;
+  children: React.ReactNode;
+}) {
   return (
-    <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h2 className="text-2xl sm:text-3xl font-extrabold text-emerald-900 tracking-tight">{title}</h2>
-      {subtitle && <p className="mt-2 text-emerald-800/80 max-w-3xl">{subtitle}</p>}
+    <section
+      id={id}
+      className="scroll-mt-24 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
+    >
+      <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0E3B00] tracking-tight">
+        {title}
+      </h2>
+      {subtitle && (
+        <p className="mt-2 text-[#0E3B00]/80 max-w-3xl">{subtitle}</p>
+      )}
       <div className="mt-6">{children}</div>
     </section>
   );
 }
 
-export default function IsItIronySite() {
+// ---------- App ----------
+export default function App() {
   const [query, setQuery] = useState("");
   const [show, setShow] = useState<"all" | "proper" | "improper">("all");
   const [activeTypes, setActiveTypes] = useState<string[]>([]);
@@ -231,7 +290,9 @@ export default function IsItIronySite() {
       if (activeTypes.length && !activeTypes.includes(ex.type)) return false;
       if (query.trim()) {
         const q = query.toLowerCase();
-        const hay = `${ex.text} ${ex.explanation} ${ex.type} ${ex.sourceTag ?? ""}`.toLowerCase();
+        const hay = `${ex.text} ${ex.explanation} ${ex.type} ${
+          ex.sourceTag ?? ""
+        }`.toLowerCase();
         if (!hay.includes(q)) return false;
       }
       return true;
@@ -239,53 +300,94 @@ export default function IsItIronySite() {
   }, [query, show, activeTypes]);
 
   function toggleType(t: string) {
-    setActiveTypes((prev) => (prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t]));
+    setActiveTypes((prev) =>
+      prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t]
+    );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-lime-50 via-emerald-50 to-white text-emerald-950">
-      {/* Header / Hero */}
-      <header className="border-b border-emerald-200/60 bg-gradient-to-r from-emerald-500 via-lime-500 to-emerald-500 text-white sticky top-0 z-20">
+    <div className="min-h-screen bg-gradient-to-b from-[#F1FFD6] via-[#E6FFB3] to-white text-[#133A00]">
+      {/* Header */}
+      <header className="sticky top-0 z-30 border-b border-[#58CC02]/30 bg-gradient-to-r from-[#58CC02] via-[#7EE000] to-[#58CC02] text-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-2xl bg-white/90 text-emerald-600 grid place-content-center font-extrabold shadow-sm">i</div>
+            <div className="w-9 h-9 rounded-2xl bg-white/90 text-[#2E7D00] grid place-content-center font-extrabold shadow-sm">
+              i
+            </div>
             <div>
-              <div className="text-lg font-extrabold tracking-tight">Is It Irony?</div>
-              <div className="text-xs text-white/90 -mt-0.5">A quick guide to using the word right</div>
+              <div className="text-lg font-extrabold tracking-tight">
+                Is It Irony?
+              </div>
+              <div className="text-xs text-white/90 -mt-0.5">
+                A quick guide to using the word right
+              </div>
             </div>
           </div>
-          <div className="hidden md:flex items-center gap-3">
-            <a className="text-sm font-bold text-white/90 hover:text-white" href="#definition">Definition</a>
-            <a className="text-sm font-bold text-white/90 hover:text-white" href="#types">Types</a>
-            <a className="text-sm font-bold text-white/90 hover:text-white" href="#examples">Examples</a>
-            <a className="text-sm font-bold text-white/90 hover:text-white" href="#make-it-ironic">Make it ironic</a>
-          </div>
+          <nav className="hidden md:flex items-center gap-3">
+            <a
+              className="text-sm font-bold text-white/90 hover:text-white"
+              href="#definition"
+            >
+              Definition
+            </a>
+            <a
+              className="text-sm font-bold text-white/90 hover:text-white"
+              href="#examples"
+            >
+              Examples
+            </a>
+            <a
+              className="text-sm font-bold text-white/90 hover:text-white"
+              href="#make-it-ironic"
+            >
+              Make it ironic
+            </a>
+          </nav>
         </div>
       </header>
 
       {/* Definition */}
       <Section
+        id="definition"
         title="What ‘irony’ means"
         subtitle="Irony is a meaningful mismatch between expectation and reality. The setup creates a clear expectation, and the outcome flips it—often revealing something about the situation, speaker, or story."
       >
-        <div id="definition" className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="p-5 rounded-2xl border border-emerald-200 bg-white shadow-sm">
-            <div className="text-sm font-extrabold text-emerald-800">Verbal irony</div>
-            <p className="mt-2 text-sm text-emerald-900/80">You say the opposite of what you mean. Sarcasm is a sharp, often mocking <em>form</em> of verbal irony.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="p-5 rounded-2xl border border-[#B6EA8C] bg-white shadow-sm">
+            <div className="text-sm font-extrabold text-[#1F5A00]">
+              Verbal irony
+            </div>
+            <p className="mt-2 text-sm text-[#1F5A00]/80">
+              You say the opposite of what you mean. Sarcasm is a sharp, often
+              mocking <em>form</em> of verbal irony.
+            </p>
           </div>
-          <div className="p-5 rounded-2xl border border-emerald-200 bg-white shadow-sm">
-            <div className="text-sm font-extrabold text-emerald-800">Situational irony</div>
-            <p className="mt-2 text-sm text-emerald-900/80">An outcome subverts a reasonable expectation created by the context, claim, or role.</p>
+          <div className="p-5 rounded-2xl border border-[#B6EA8C] bg-white shadow-sm">
+            <div className="text-sm font-extrabold text-[#1F5A00]">
+              Situational irony
+            </div>
+            <p className="mt-2 text-sm text-[#1F5A00]/80">
+              An outcome subverts a reasonable expectation created by the
+              context, claim, or role.
+            </p>
           </div>
-          <div className="p-5 rounded-2xl border border-emerald-200 bg-white shadow-sm">
-            <div className="text-sm font-extrabold text-emerald-800">Dramatic irony</div>
-            <p className="mt-2 text-sm text-emerald-900/80">The audience knows key facts that a character doesn’t, so words/actions land differently for us.</p>
+          <div className="p-5 rounded-2xl border border-[#B6EA8C] bg-white shadow-sm">
+            <div className="text-sm font-extrabold text-[#1F5A00]">
+              Dramatic irony
+            </div>
+            <p className="mt-2 text-sm text-[#1F5A00]/80">
+              The audience knows key facts that a character doesn’t, so
+              words/actions land differently for us.
+            </p>
           </div>
         </div>
       </Section>
 
       {/* Controls */}
-      <Section title="Spotting it in the wild" subtitle="Search, filter, and compare proper vs. improper uses.">
+      <Section
+        title="Spotting it in the wild"
+        subtitle="Search, filter, and compare proper vs. improper uses."
+      >
         <div className="flex flex-col gap-4">
           <div className="grid md:grid-cols-3 gap-3">
             <div className="md:col-span-2">
@@ -293,18 +395,18 @@ export default function IsItIronySite() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search examples (e.g., wedding, Romeo, billboard)…"
-                className="w-full h-11 px-3 rounded-2xl border border-emerald-300 focus:ring-2 focus:ring-emerald-400/60 focus:outline-none bg-white"
+                className="w-full h-11 px-3 rounded-2xl border border-[#B6EA8C] focus:ring-2 focus:ring-[#58CC02]/60 focus:outline-none bg-white"
               />
             </div>
             <div className="flex items-center gap-2">
               {(["all", "proper", "improper"] as const).map((opt) => (
                 <button
-                  key={opt}
+                  key={optimisticKey(opt)}
                   onClick={() => setShow(opt)}
                   className={`flex-1 h-11 rounded-2xl border text-sm font-extrabold transition ${
                     show === opt
-                      ? "bg-emerald-600 text-white border-emerald-600 shadow"
-                      : "bg-white text-emerald-800 border-emerald-300 hover:bg-emerald-50"
+                      ? "bg-[#58CC02] text-white border-[#58CC02] shadow"
+                      : "bg-white text-[#1F5A00] border-[#B6EA8C] hover:bg-[#F1FFD6]"
                   }`}
                 >
                   {opt[0].toUpperCase() + opt.slice(1)}
@@ -320,8 +422,8 @@ export default function IsItIronySite() {
                 onClick={() => toggleType(t)}
                 className={`px-3 py-1.5 rounded-full border text-xs font-bold transition ${
                   activeTypes.includes(t)
-                    ? "bg-emerald-600 text-white border-emerald-600 shadow"
-                    : "bg-white text-emerald-800 border-emerald-300 hover:bg-emerald-50"
+                    ? "bg-[#58CC02] text-white border-[#58CC02] shadow"
+                    : "bg-white text-[#1F5A00] border-[#B6EA8C] hover:bg-[#F1FFD6]"
                 }`}
               >
                 {t}
@@ -330,7 +432,7 @@ export default function IsItIronySite() {
             {activeTypes.length > 0 && (
               <button
                 onClick={() => setActiveTypes([])}
-                className="px-3 py-1.5 rounded-full border text-xs font-bold bg-white text-emerald-700 border-emerald-300 hover:bg-emerald-50"
+                className="px-3 py-1.5 rounded-full border text-xs font-bold bg-white text-[#1F5A00] border-[#B6EA8C] hover:bg-[#F1FFD6]"
               >
                 Clear
               </button>
@@ -341,14 +443,20 @@ export default function IsItIronySite() {
 
       {/* Examples */}
       <Section
+        id="examples"
         title="Examples: Proper vs. Improper"
         subtitle="Green = proper use of ‘irony’. Red = common misuses, with better word choices."
       >
-        <div id="examples" className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {filtered.map((ex, i) => (
-            <article key={i} className="p-5 rounded-2xl border border-emerald-200 bg-white shadow-sm flex flex-col gap-3">
+            <article
+              key={i}
+              className="p-5 rounded-2xl border border-[#B6EA8C] bg-white shadow-sm flex flex-col gap-3"
+            >
               <div className="flex items-start justify-between gap-3">
-                <div className="text-base font-extrabold text-emerald-950 leading-snug">{ex.text}</div>
+                <div className="text-base font-extrabold text-[#133A00] leading-snug">
+                  {ex.text}
+                </div>
                 {ex.proper ? (
                   <Pill kind="proper">Proper</Pill>
                 ) : (
@@ -357,15 +465,22 @@ export default function IsItIronySite() {
               </div>
               <div className="flex items-center gap-2">
                 <Pill kind="type">{ex.type}</Pill>
-                {ex.sourceTag && <span className="text-xs text-emerald-700/60">{ex.sourceTag}</span>}
+                {ex.sourceTag && (
+                  <span className="text-xs text-[#0E3B00]/60">
+                    {ex.sourceTag}
+                  </span>
+                )}
               </div>
-              <p className="text-sm text-emerald-900/80">{ex.explanation}</p>
+              <p className="text-sm text-[#1F5A00]/80">{ex.explanation}</p>
               {!ex.proper && ex.instead && (
                 <div className="text-sm">
-                  <span className="text-emerald-700/80">Say this instead:</span>
+                  <span className="text-[#0E3B00]/80">Say this instead:</span>
                   <div className="mt-1 flex flex-wrap gap-1.5">
                     {ex.instead.map((w, idx) => (
-                      <span key={idx} className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-900 text-xs border border-emerald-200">
+                      <span
+                        key={idx}
+                        className="px-2 py-0.5 rounded-full bg-[#F1FFD6] text-[#133A00] text-xs border border-[#B6EA8C]"
+                      >
                         {w}
                       </span>
                     ))}
@@ -373,15 +488,19 @@ export default function IsItIronySite() {
                 </div>
               )}
               <button
-                onClick={() => setExpanded((s) => ({ ...s, [i]: !s[i] }))}
-                className="mt-auto self-start text-xs font-bold text-emerald-700 hover:text-emerald-900"
+                onClick={() =>
+                  setExpanded((s) => ({ ...s, [i]: !s[i] }))
+                }
+                className="mt-auto self-start text-xs font-bold text-[#1F5A00] hover:text-[#0E3B00]"
               >
                 {expanded[i] ? "Hide notes" : "Why this is (not) irony"}
               </button>
               {expanded[i] && (
-                <div className="text-xs text-emerald-900/80 bg-emerald-50 border border-emerald-200 rounded-xl p-3 -mt-2">
+                <div className="text-xs text-[#1F5A00]/80 bg-[#F1FFD6] border border-[#B6EA8C] rounded-xl p-3 -mt-2">
                   <p>
-                    <strong>Test:</strong> What expectation is clearly set, and how does the outcome <em>invert</em> it? If you can’t name both, it’s probably not irony.
+                    <strong>Test:</strong> What expectation is clearly set, and
+                    how does the outcome <em>invert</em> it? If you can’t name
+                    both, it’s probably not irony.
                   </p>
                 </div>
               )}
@@ -392,45 +511,72 @@ export default function IsItIronySite() {
 
       {/* Make it ironic */}
       <Section
+        id="make-it-ironic"
         title="How to ‘make it ironic’ (without forcing it)"
         subtitle="Irony isn’t just bad luck. Add a claim, role, or context that creates a specific expectation—then overturn it."
       >
-        <div id="make-it-ironic" className="grid md:grid-cols-2 gap-4">
-          <div className="p-5 rounded-2xl border border-emerald-200 bg-white shadow-sm">
-            <div className="text-sm font-extrabold text-emerald-800">1) Add an explicit expectation</div>
-            <ul className="mt-2 text-sm text-emerald-900/80 list-disc pl-5 space-y-1">
-              <li>Claim: “This museum is flood‑proof.” → <em>It floods.</em></li>
-              <li>Role: A fire station should be safe from fire. → <em>It burns down.</em></li>
-              <li>Promise: An app called “Focus.” → <em>Launch video is full of pop‑ups.</em></li>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="p-5 rounded-2xl border border-[#B6EA8C] bg-white shadow-sm">
+            <div className="text-sm font-extrabold text-[#1F5A00]">
+              1) Add an explicit expectation
+            </div>
+            <ul className="mt-2 text-sm text-[#1F5A00]/80 list-disc pl-5 space-y-1">
+              <li>
+                Claim: “This museum is flood-proof.” → <em>It floods.</em>
+              </li>
+              <li>
+                Role: A fire station should be safe from fire. →{" "}
+                <em>It burns down.</em>
+              </li>
+              <li>
+                Promise: An app called “Focus.” →{" "}
+                <em>Launch video is full of pop-ups.</em>
+              </li>
             </ul>
           </div>
-          <div className="p-5 rounded-2xl border border-emerald-200 bg-white shadow-sm">
-            <div className="text-sm font-extrabold text-emerald-800">2) Or shift to a better word</div>
-            <p className="mt-2 text-sm text-emerald-900/80">If there’s no expectation to overturn, pick a precise alternative:</p>
+          <div className="p-5 rounded-2xl border border-[#B6EA8C] bg-white shadow-sm">
+            <div className="text-sm font-extrabold text-[#1F5A00]">
+              2) Or shift to a better word
+            </div>
+            <p className="mt-2 text-sm text-[#1F5A00]/80">
+              If there’s no expectation to overturn, pick a precise alternative:
+            </p>
             <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
               <div>
-                <div className="font-extrabold text-emerald-900">Coincidence</div>
-                <div className="text-emerald-900/80">coincidentally, by chance</div>
+                <div className="font-extrabold text-[#133A00]">
+                  Coincidence
+                </div>
+                <div className="text-[#1F5A00]/80">coincidentally, by chance</div>
               </div>
               <div>
-                <div className="font-extrabold text-emerald-900">Bad luck / timing</div>
-                <div className="text-emerald-900/80">unfortunately, inconveniently</div>
+                <div className="font-extrabold text-[#133A00]">
+                  Bad luck / timing
+                </div>
+                <div className="text-[#1F5A00]/80">
+                  unfortunately, inconveniently
+                </div>
               </div>
               <div>
-                <div className="font-extrabold text-emerald-900">Tragedy / misfortune</div>
-                <div className="text-emerald-900/80">tragically, sadly</div>
+                <div className="font-extrabold text-[#133A00]">
+                  Tragedy / misfortune
+                </div>
+                <div className="text-[#1F5A00]/80">tragically, sadly</div>
               </div>
               <div>
-                <div className="font-extrabold text-emerald-900">Hypocrisy</div>
-                <div className="text-emerald-900/80">hypocritically</div>
+                <div className="font-extrabold text-[#133A00]">Hypocrisy</div>
+                <div className="text-[#1F5A00]/80">hypocritically</div>
               </div>
               <div>
-                <div className="font-extrabold text-emerald-900">Surprise</div>
-                <div className="text-emerald-900/80">surprisingly, unexpectedly</div>
+                <div className="font-extrabold text-[#133A00]">Surprise</div>
+                <div className="text-[#1F5A00]/80">
+                  surprisingly, unexpectedly
+                </div>
               </div>
               <div>
-                <div className="font-extrabold text-emerald-900">Sarcasm only</div>
-                <div className="text-emerald-900/80">sarcastically</div>
+                <div className="font-extrabold text-[#133A00]">
+                  Sarcasm only
+                </div>
+                <div className="text-[#1F5A00]/80">sarcastically</div>
               </div>
             </div>
           </div>
@@ -438,9 +584,15 @@ export default function IsItIronySite() {
       </Section>
 
       {/* Footer */}
-      <footer className="py-12 text-center text-sm text-emerald-800/80">
-        Built to teach, not to nitpick. Language shifts, but clarity wins. — <span className="font-extrabold text-emerald-900">Is It Irony?</span>
+      <footer className="py-12 text-center text-sm text-[#1F5A00]/80">
+        Built to teach, not to nitpick. Language shifts, but clarity wins. —{" "}
+        <span className="font-extrabold text-[#133A00]">Is It Irony?</span>
       </footer>
     </div>
   );
+}
+
+// tiny helper to avoid React warning about "key" when mapping filter buttons
+function optimisticKey(s: string) {
+  return `k_${s}`;
 }
