@@ -1,0 +1,81 @@
+# dependencies
+/node_modules
+.pnp
+.pnp.js
+
+# testing
+/coverage
+*.lcov
+
+# build outputs
+/dist
+/dist-ssr
+/.vite
+*.local
+
+# local env files
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+
+# misc
+*.pem
+.cache
+.parcel-cache
+.next
+.nuxt
+.vuepress/dist
+.serverless
+.fusebox
+.dynamodb
+.tern-port
+.vscode-test
+.yarn-integrity
+
+# TypeScript
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
