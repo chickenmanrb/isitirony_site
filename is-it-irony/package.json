@@ -8,8 +8,8 @@
     "build": "npm run tailwind:build && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "tailwind:dev": "tailwindcss -i ./src/index.css -o ./src/tailwind.css -w",
-    "tailwind:build": "tailwindcss -i ./src/index.css -o ./src/tailwind.css -m"
+    "tailwind:dev": "tailwindcss -c ./tailwind.config.js -i ./src/index.css -o ./src/tailwind.css -w",
+    "tailwind:build": "tailwindcss -c ./tailwind.config.js -i ./src/index.css -o ./src/tailwind.css -m"
   },
   "dependencies": {
     "react": "^19.1.1",
