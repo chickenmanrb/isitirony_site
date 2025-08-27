@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Duolingo-style emerald greens (brighter and more vibrant)
+        // Emerald greens tuned for readability
         emerald: {
           50: '#f0fdf4',   // Very light green background
           100: '#dcfce7',  // Light green
