@@ -296,6 +296,9 @@ export default function App() {
         if (!hay.includes(q)) return false;
       }
       return true;
+    }).sort((a, b) => {
+      if (a.proper === b.proper) return 0;
+      return a.proper ? 1 : -1;
     });
   }, [query, show, activeTypes]);
 
