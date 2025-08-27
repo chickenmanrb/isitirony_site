@@ -242,10 +242,10 @@ function Pill({
   const base =
     "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold tracking-tight ring-1";
   const map: Record<string, string> = {
-    // Duolingo-ish palette
-    proper: "bg-[#58CC02] text-white ring-[#3DA300]",
-    improper: "bg-[#FF4B4B] text-white ring-[#E03A3A]",
-    type: "bg-[#D7F3FF] text-[#0B486B] ring-[#BFEAFF]",
+    // Accessible palette
+    proper: "bg-emerald-500 text-white ring-emerald-600",
+    improper: "bg-red-500 text-white ring-red-600",
+    type: "bg-sky-100 text-sky-900 ring-sky-200",
   };
   return <span className={`${base} ${map[kind]}`}>{children}</span>;
 }
@@ -266,11 +266,11 @@ function Section({
       id={id}
       className="scroll-mt-24 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
     >
-      <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0E3B00] tracking-tight">
+      <h2 className="text-2xl sm:text-3xl font-extrabold text-emerald-900 tracking-tight">
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-2 text-[#0E3B00]/80 max-w-3xl">{subtitle}</p>
+        <p className="mt-2 text-emerald-900/80 max-w-3xl">{subtitle}</p>
       )}
       <div className="mt-6">{children}</div>
     </section>
@@ -306,12 +306,12 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#F1FFD6] via-[#E6FFB3] to-white text-[#133A00]">
+    <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-emerald-100 to-white text-emerald-900">
       {/* Header */}
-      <header className="sticky top-0 z-30 border-b border-[#58CC02]/30 bg-gradient-to-r from-[#58CC02] via-[#7EE000] to-[#58CC02] text-white">
+      <header className="sticky top-0 z-30 border-b border-emerald-600/30 bg-gradient-to-r from-emerald-600 via-emerald-500 to-emerald-600 text-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-2xl bg-white/90 text-[#2E7D00] grid place-content-center font-extrabold shadow-sm">
+            <div className="w-9 h-9 rounded-2xl bg-white/90 text-emerald-700 grid place-content-center font-extrabold shadow-sm">
               i
             </div>
             <div>
@@ -353,29 +353,29 @@ export default function App() {
         subtitle="Irony is a meaningful mismatch between expectation and reality. The setup creates a clear expectation, and the outcome flips it—often revealing something about the situation, speaker, or story."
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="p-5 rounded-2xl border border-[#B6EA8C] bg-white shadow-sm">
-            <div className="text-sm font-extrabold text-[#1F5A00]">
+          <div className="p-5 rounded-2xl border border-emerald-200 bg-white shadow-sm">
+            <div className="text-sm font-extrabold text-emerald-800">
               Verbal irony
             </div>
-            <p className="mt-2 text-sm text-[#1F5A00]/80">
+            <p className="mt-2 text-sm text-emerald-800/80">
               You say the opposite of what you mean. Sarcasm is a sharp, often
               mocking <em>form</em> of verbal irony.
             </p>
           </div>
-          <div className="p-5 rounded-2xl border border-[#B6EA8C] bg-white shadow-sm">
-            <div className="text-sm font-extrabold text-[#1F5A00]">
+          <div className="p-5 rounded-2xl border border-emerald-200 bg-white shadow-sm">
+            <div className="text-sm font-extrabold text-emerald-800">
               Situational irony
             </div>
-            <p className="mt-2 text-sm text-[#1F5A00]/80">
+            <p className="mt-2 text-sm text-emerald-800/80">
               An outcome subverts a reasonable expectation created by the
               context, claim, or role.
             </p>
           </div>
-          <div className="p-5 rounded-2xl border border-[#B6EA8C] bg-white shadow-sm">
-            <div className="text-sm font-extrabold text-[#1F5A00]">
+          <div className="p-5 rounded-2xl border border-emerald-200 bg-white shadow-sm">
+            <div className="text-sm font-extrabold text-emerald-800">
               Dramatic irony
             </div>
-            <p className="mt-2 text-sm text-[#1F5A00]/80">
+            <p className="mt-2 text-sm text-emerald-800/80">
               The audience knows key facts that a character doesn’t, so
               words/actions land differently for us.
             </p>
@@ -395,7 +395,7 @@ export default function App() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search examples (e.g., wedding, Romeo, billboard)…"
-                className="w-full h-11 px-3 rounded-2xl border border-[#B6EA8C] focus:ring-2 focus:ring-[#58CC02]/60 focus:outline-none bg-white"
+                className="w-full h-11 px-3 rounded-2xl border border-emerald-200 focus:ring-2 focus:ring-emerald-500/60 focus:outline-none bg-white"
               />
             </div>
             <div className="flex items-center gap-2">
@@ -405,8 +405,8 @@ export default function App() {
                   onClick={() => setShow(opt)}
                   className={`flex-1 h-11 rounded-2xl border text-sm font-extrabold transition ${
                     show === opt
-                      ? "bg-[#58CC02] text-white border-[#58CC02] shadow"
-                      : "bg-white text-[#1F5A00] border-[#B6EA8C] hover:bg-[#F1FFD6]"
+                      ? "bg-emerald-500 text-white border-emerald-500 shadow"
+                      : "bg-white text-emerald-800 border-emerald-200 hover:bg-emerald-50"
                   }`}
                 >
                   {opt[0].toUpperCase() + opt.slice(1)}
@@ -422,8 +422,8 @@ export default function App() {
                 onClick={() => toggleType(t)}
                 className={`px-3 py-1.5 rounded-full border text-xs font-bold transition ${
                   activeTypes.includes(t)
-                    ? "bg-[#58CC02] text-white border-[#58CC02] shadow"
-                    : "bg-white text-[#1F5A00] border-[#B6EA8C] hover:bg-[#F1FFD6]"
+                    ? "bg-emerald-500 text-white border-emerald-500 shadow"
+                    : "bg-white text-emerald-800 border-emerald-200 hover:bg-emerald-50"
                 }`}
               >
                 {t}
@@ -432,7 +432,7 @@ export default function App() {
             {activeTypes.length > 0 && (
               <button
                 onClick={() => setActiveTypes([])}
-                className="px-3 py-1.5 rounded-full border text-xs font-bold bg-white text-[#1F5A00] border-[#B6EA8C] hover:bg-[#F1FFD6]"
+                className="px-3 py-1.5 rounded-full border text-xs font-bold bg-white text-emerald-800 border-emerald-200 hover:bg-emerald-50"
               >
                 Clear
               </button>
@@ -451,10 +451,10 @@ export default function App() {
           {filtered.map((ex, i) => (
             <article
               key={i}
-              className="p-5 rounded-2xl border border-[#B6EA8C] bg-white shadow-sm flex flex-col gap-3"
+              className="p-5 rounded-2xl border border-emerald-200 bg-white shadow-sm flex flex-col gap-3"
             >
               <div className="flex items-start justify-between gap-3">
-                <div className="text-base font-extrabold text-[#133A00] leading-snug">
+                <div className="text-base font-extrabold text-emerald-900 leading-snug">
                   {ex.text}
                 </div>
                 {ex.proper ? (
@@ -466,20 +466,20 @@ export default function App() {
               <div className="flex items-center gap-2">
                 <Pill kind="type">{ex.type}</Pill>
                 {ex.sourceTag && (
-                  <span className="text-xs text-[#0E3B00]/60">
+                  <span className="text-xs text-emerald-900/60">
                     {ex.sourceTag}
                   </span>
                 )}
               </div>
-              <p className="text-sm text-[#1F5A00]/80">{ex.explanation}</p>
+              <p className="text-sm text-emerald-800/80">{ex.explanation}</p>
               {!ex.proper && ex.instead && (
                 <div className="text-sm">
-                  <span className="text-[#0E3B00]/80">Say this instead:</span>
+                  <span className="text-emerald-900/80">Say this instead:</span>
                   <div className="mt-1 flex flex-wrap gap-1.5">
                     {ex.instead.map((w, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-0.5 rounded-full bg-[#F1FFD6] text-[#133A00] text-xs border border-[#B6EA8C]"
+                        className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-900 text-xs border border-emerald-200"
                       >
                         {w}
                       </span>
@@ -491,12 +491,12 @@ export default function App() {
                 onClick={() =>
                   setExpanded((s) => ({ ...s, [i]: !s[i] }))
                 }
-                className="mt-auto self-start text-xs font-bold text-[#1F5A00] hover:text-[#0E3B00]"
+                className="mt-auto self-start text-xs font-bold text-emerald-800 hover:text-emerald-900"
               >
                 {expanded[i] ? "Hide notes" : "Why this is (not) irony"}
               </button>
               {expanded[i] && (
-                <div className="text-xs text-[#1F5A00]/80 bg-[#F1FFD6] border border-[#B6EA8C] rounded-xl p-3 -mt-2">
+                <div className="text-xs text-emerald-800/80 bg-emerald-50 border border-emerald-200 rounded-xl p-3 -mt-2">
                   <p>
                     <strong>Test:</strong> What expectation is clearly set, and
                     how does the outcome <em>invert</em> it? If you can’t name
@@ -516,11 +516,11 @@ export default function App() {
         subtitle="Irony isn’t just bad luck. Add a claim, role, or context that creates a specific expectation—then overturn it."
       >
         <div className="grid md:grid-cols-2 gap-4">
-          <div className="p-5 rounded-2xl border border-[#B6EA8C] bg-white shadow-sm">
-            <div className="text-sm font-extrabold text-[#1F5A00]">
+          <div className="p-5 rounded-2xl border border-emerald-200 bg-white shadow-sm">
+            <div className="text-sm font-extrabold text-emerald-800">
               1) Add an explicit expectation
             </div>
-            <ul className="mt-2 text-sm text-[#1F5A00]/80 list-disc pl-5 space-y-1">
+            <ul className="mt-2 text-sm text-emerald-800/80 list-disc pl-5 space-y-1">
               <li>
                 Claim: “This museum is flood-proof.” → <em>It floods.</em>
               </li>
@@ -534,49 +534,49 @@ export default function App() {
               </li>
             </ul>
           </div>
-          <div className="p-5 rounded-2xl border border-[#B6EA8C] bg-white shadow-sm">
-            <div className="text-sm font-extrabold text-[#1F5A00]">
+          <div className="p-5 rounded-2xl border border-emerald-200 bg-white shadow-sm">
+            <div className="text-sm font-extrabold text-emerald-800">
               2) Or shift to a better word
             </div>
-            <p className="mt-2 text-sm text-[#1F5A00]/80">
+            <p className="mt-2 text-sm text-emerald-800/80">
               If there’s no expectation to overturn, pick a precise alternative:
             </p>
             <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
               <div>
-                <div className="font-extrabold text-[#133A00]">
+                <div className="font-extrabold text-emerald-900">
                   Coincidence
                 </div>
-                <div className="text-[#1F5A00]/80">coincidentally, by chance</div>
+                <div className="text-emerald-800/80">coincidentally, by chance</div>
               </div>
               <div>
-                <div className="font-extrabold text-[#133A00]">
+                <div className="font-extrabold text-emerald-900">
                   Bad luck / timing
                 </div>
-                <div className="text-[#1F5A00]/80">
+                <div className="text-emerald-800/80">
                   unfortunately, inconveniently
                 </div>
               </div>
               <div>
-                <div className="font-extrabold text-[#133A00]">
+                <div className="font-extrabold text-emerald-900">
                   Tragedy / misfortune
                 </div>
-                <div className="text-[#1F5A00]/80">tragically, sadly</div>
+                <div className="text-emerald-800/80">tragically, sadly</div>
               </div>
               <div>
-                <div className="font-extrabold text-[#133A00]">Hypocrisy</div>
-                <div className="text-[#1F5A00]/80">hypocritically</div>
+                <div className="font-extrabold text-emerald-900">Hypocrisy</div>
+                <div className="text-emerald-800/80">hypocritically</div>
               </div>
               <div>
-                <div className="font-extrabold text-[#133A00]">Surprise</div>
-                <div className="text-[#1F5A00]/80">
+                <div className="font-extrabold text-emerald-900">Surprise</div>
+                <div className="text-emerald-800/80">
                   surprisingly, unexpectedly
                 </div>
               </div>
               <div>
-                <div className="font-extrabold text-[#133A00]">
+                <div className="font-extrabold text-emerald-900">
                   Sarcasm only
                 </div>
-                <div className="text-[#1F5A00]/80">sarcastically</div>
+                <div className="text-emerald-800/80">sarcastically</div>
               </div>
             </div>
           </div>
@@ -584,9 +584,9 @@ export default function App() {
       </Section>
 
       {/* Footer */}
-      <footer className="py-12 text-center text-sm text-[#1F5A00]/80">
+      <footer className="py-12 text-center text-sm text-emerald-800/80">
         Built to teach, not to nitpick. Language shifts, but clarity wins. —{" "}
-        <span className="font-extrabold text-[#133A00]">Is It Irony?</span>
+        <span className="font-extrabold text-emerald-900">Is It Irony?</span>
       </footer>
     </div>
   );
